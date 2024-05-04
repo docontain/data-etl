@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  db:
+    build: ./db
+    environment:
+      POSTGRES_DB: target_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
+
+  etl:
+    build: ./etl
+    volumes:
+      - ./etl:/app
+    depends_on:
+      - db
